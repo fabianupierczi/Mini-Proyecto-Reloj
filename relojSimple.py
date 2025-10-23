@@ -11,6 +11,9 @@ def hora():
     reloj.config(text = tiempo_actual)
     ventana.after(1000, hora)
 
+botonEntrada = tk.Button(text="ENTRADA")
+botonEntrada.place(x=50, y=150)
+
 reloj.pack(anchor = 'center')
 hora()
 ventana.mainloop()
