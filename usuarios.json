@@ -1,0 +1,14 @@
+[
+    {
+        "dni": 4567890,
+        "nombre": "Alicia Rodriguez",
+        "entrada": "09:00",
+        "salida": "18:00"
+    },
+    {
+        "dni": 4157830,
+        "nombre": "Miguel Can\u00c3\u00a9",
+        "entrada": "11:00",
+        "salida": "21:00"
+    }
+]
