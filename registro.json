@@ -1,0 +1,51 @@
+[
+    {
+        "dni": 4567890,
+        "nombre": "Alicia Rodriguez",
+        "accion": "SALIDA",
+        "hora": "2025-11-14 11:58:07",
+        "condicion": "Antes de tiempo"
+    },
+    {
+        "dni": 4567890,
+        "nombre": "Alicia Rodriguez",
+        "accion": "ENTRADA",
+        "hora": "2025-11-14 11:58:25",
+        "condicion": "Tardanza"
+    },
+    {
+        "dni": 4567890,
+        "nombre": "Alicia Rodriguez",
+        "accion": "ENTRADA",
+        "hora": "2025-11-14 12:22:02",
+        "condicion": "Tardanza"
+    },
+    {
+        "dni": 4567890,
+        "nombre": "Alicia Rodriguez",
+        "accion": "SALIDA",
+        "hora": "2025-11-14 12:22:17",
+        "condicion": "Antes de tiempo"
+    },
+    {
+        "dni": 4567890,
+        "nombre": "Alicia Rodriguez",
+        "accion": "ENTRADA",
+        "hora": "2025-11-14 12:35:57",
+        "condicion": "Tardanza"
+    },
+    {
+        "dni": 4567890,
+        "nombre": "Alicia Rodriguez",
+        "accion": "SALIDA",
+        "hora": "2025-11-14 12:36:01",
+        "condicion": "Antes de tiempo"
+    },
+    {
+        "dni": 3811232,
+        "nombre": "Rolando Romuel",
+        "accion": "ENTRADA",
+        "hora": "2025-11-14 13:36:49",
+        "condicion": "Tardanza"
+    }
+]

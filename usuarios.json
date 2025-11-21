@@ -2,19 +2,25 @@
     {
         "dni": 4567890,
         "nombre": "Alicia Rodriguez",
-        "entrada": "09:00",
-        "salida": "18:00"
+        "h_entrada": 9,
+        "m_entrada": 0,
+        "h_salida": 18,
+        "m_salida": 0
     },
     {
         "dni": 4157830,
-        "nombre": "Miguel Can\u00c3\u00a9",
-        "entrada": "11:00",
-        "salida": "21:00"
+        "nombre": "Miguel Cané",
+        "h_entrada": 11,
+        "m_entrada": 0,
+        "h_salida": 21,
+        "m_salida": 0
     },
     {
         "dni": 3811232,
         "nombre": "Rolando Romuel",
-        "entrada": "15:00",
-        "salida": "23:00"
+        "h_entrada": 10,
+        "m_entrada": 0,
+        "h_salida": 16,
+        "m_salida": 0
     }
 ]
