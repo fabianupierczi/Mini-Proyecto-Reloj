@@ -1,23 +1,23 @@
 [
     {
-        "dni": 4567890,
-        "nombre": "Alicia Rodriguez",
-        "h_entrada": 9,
-        "m_entrada": 0,
-        "h_salida": 18,
-        "m_salida": 0
-    },
-    {
-        "dni": 4157830,
-        "nombre": "Miguel Cané",
-        "h_entrada": 11,
-        "m_entrada": 0,
-        "h_salida": 21,
-        "m_salida": 0
-    },
-    {
         "dni": 3811232,
         "nombre": "Rolando Romuel",
+        "h_entrada": 10,
+        "m_entrada": 0,
+        "h_salida": 16,
+        "m_salida": 0
+    },
+    {
+        "dni": 39618506,
+        "nombre": "Silvia Lothart",
+        "h_entrada": 10,
+        "m_entrada": 0,
+        "h_salida": 16,
+        "m_salida": 0
+    },
+    {
+        "dni": 45315483,
+        "nombre": "Miguel Cane",
         "h_entrada": 10,
         "m_entrada": 0,
         "h_salida": 16,
