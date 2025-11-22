@@ -188,7 +188,7 @@ def eliminar_registro(tv):
 #<VENTANAS TKINTER>
 
 ventana = tk.Tk()
-ventana.title('Reloj simple')
+ventana.title("Checkout para empleados")
 ventana.geometry('400x260')
 ventana.resizable(False, False)
 
@@ -218,7 +218,7 @@ def abrir_ventana_usuarios():
     usuarios = cargar_usuarios()
 
     ventana_us = tk.Toplevel(ventana)
-    ventana_us.title("Administrar usuarios")
+    ventana_us.title("Administrador de empleados")
     ventana_us.geometry("500x500")
     ventana_us.resizable(False, False)
     ventana_us.grab_set()
