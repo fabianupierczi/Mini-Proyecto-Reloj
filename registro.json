@@ -1,1 +1,16 @@
-[]
+[
+    {
+        "dni": 45315483,
+        "nombre": "Miguel Cane",
+        "accion": "ENTRADA",
+        "hora": "2025-11-22 09:47:08",
+        "condicion": "A tiempo"
+    },
+    {
+        "dni": 45315483,
+        "nombre": "Miguel Cane",
+        "accion": "SALIDA",
+        "hora": "2025-11-22 09:47:12",
+        "condicion": "Antes de tiempo"
+    }
+]

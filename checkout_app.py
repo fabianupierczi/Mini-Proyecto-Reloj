@@ -184,8 +184,7 @@ def eliminar_registro(tv):
 
 ventana = tk.Tk()
 ventana.title('Reloj simple')
-ventana.geometry('400x200')
-reloj = tk.Label(ventana, font = ('Arial', 60), bg = 'blue', fg = 'white')
+ventana.geometry('400x260')
 ventana.resizable(False, False)
 
 
@@ -208,11 +207,6 @@ def hora():
     reloj.config(text = tiempo_actual)
     ventana.after(1000, hora)
 
-labelDNI = tk.Label(ventana, text="Ingrese su DNI")
-labelDNI.place(x=50, y=100)
-
-entryDNI = tk.Entry()
-entryDNI.place(x=50, y=120)
 
 
 def abrir_ventana_usuarios():
@@ -226,15 +220,13 @@ def abrir_ventana_usuarios():
     ventana_us.focus_force()
     center_window(ventana_us)
 
-    # Título
+
     label_new = tk.Label(ventana_us, text="Usuarios registrados", font=("Arial", 14, "bold"))
     label_new.pack(pady=5)
 
-    # --- FRAME PARA TABLA ---
     frame_tabla = tk.Frame(ventana_us)
     frame_tabla.pack(pady=5)
 
-    # Treeview dentro del frame
     tv = ttk.Treeview(frame_tabla, columns=("col1", "col2"), height=10)
     tv.column("#0", width=140)
     tv.column("col1", width=100, anchor=CENTER)
@@ -262,7 +254,7 @@ def abrir_ventana_usuarios():
     tv.pack(side="left")
     scroll.pack(side="right", fill="y")
 
-    # --- BOTÓN ELIMINAR ---
+
     btn_eliminar = tk.Button(
         ventana_us,
         text="Eliminar usuario seleccionado",
@@ -270,11 +262,10 @@ def abrir_ventana_usuarios():
     )
     btn_eliminar.pack(pady=10)
 
-    # --- FRAME PARA FORMULARIO ---
     frame_form = tk.Frame(ventana_us)
     frame_form.pack(pady=10)
 
-    # Labels y entries del formulario
+
     Label(frame_form, text="Nombre").grid(row=0, column=0, padx=5, pady=3)
     Label(frame_form, text="DNI").grid(row=1, column=0, padx=5, pady=3)
     Label(frame_form, text="Hora entrada").grid(row=2, column=0, padx=5, pady=3)
@@ -320,15 +311,14 @@ def abrir_ventana_registro():
     user_button.place(x=250, y=400)
 
     btn_eliminar = tk.Button(ventana_res, text="Eliminar seleccionado",
-    command=lambda: eliminar_registro(tv))  # ← agregado
-    btn_eliminar.place(x=50, y=400)  # ← agregado
+    command=lambda: eliminar_registro(tv))  
+    btn_eliminar.place(x=50, y=400)  
 
 
-    # --- CONTENEDOR PARA EL TREEVIEW Y SCROLLBAR ---
     frame_tabla = tk.Frame(ventana_res)
     frame_tabla.place(x=4, y=30)
 
-    # Treeview
+
     tv = ttk.Treeview(frame_tabla, columns=("col1", "col2", "col3"), height=15)
 
     tv.column("#0", width=130)
@@ -345,30 +335,63 @@ def abrir_ventana_registro():
         tv.insert("", END, text=registro["nombre"],
                   values=(registro["hora"], registro["accion"], registro["condicion"]))
 
-    # Scrollbar a la derecha del Treeview
     scroll = ttk.Scrollbar(frame_tabla, orient="vertical", command=tv.yview)
     tv.configure(yscrollcommand=scroll.set)
 
-    # Ubicación dentro del frame usando pack
+
     tv.pack(side="left")
     scroll.pack(side="right", fill="y")
 
 
 
-#<BOTONES DEL MENU DE RELOJ>
+#<DISPOSICIÓN DEL MENU DE RELOJ>
+
 center_window(ventana)
 
-botonEntrada = tk.Button(text="ENTRADA",command=lambda: registrar_horario(int(entryDNI.get()),"ENTRADA"))
-botonEntrada.place(x=20, y=150)
-
-botonSalida = tk.Button(text="SALIDA",command=lambda: registrar_horario(int(entryDNI.get()),"SALIDA"))
-botonSalida.place(x=210, y=150)
-
-botonSalida = tk.Button(text="ADMIN",command=abrir_ventana_registro)
-botonSalida.place(x=330, y=150)
+frame = tk.Frame(ventana)
+frame.pack(expand=True)   
 
 
-reloj.pack(anchor = 'center')
+reloj = tk.Label(
+    frame,
+    font=('Arial', 60),
+    bg='blue',
+    fg='white'
+)
+reloj.grid(row=0, column=0, columnspan=3, pady=10)
+
+
+labelDNI = tk.Label(frame, text="Ingrese su DNI")
+labelDNI.grid(row=1, column=0, columnspan=3, pady=(10, 0))
+
+entryDNI = tk.Entry(frame, justify="center")
+entryDNI.grid(row=2, column=0, columnspan=3, pady=5)
+
+
+botonEntrada = tk.Button(
+    frame,
+    text="ENTRADA",
+    width=12,
+    command=lambda: registrar_horario(int(entryDNI.get()), "ENTRADA")
+)
+botonEntrada.grid(row=3, column=0, padx=5, pady=15)
+
+botonSalida = tk.Button(
+    frame,
+    text="SALIDA",
+    width=12,
+    command=lambda: registrar_horario(int(entryDNI.get()), "SALIDA")
+)
+botonSalida.grid(row=3, column=1, padx=5)
+
+botonAdmin = tk.Button(
+    frame,
+    text="ADMIN",
+    width=12,
+    command=abrir_ventana_registro
+)
+botonAdmin.grid(row=3, column=2, padx=5)
+
 hora()
 ventana.mainloop()
 
