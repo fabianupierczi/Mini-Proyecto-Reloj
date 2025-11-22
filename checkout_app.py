@@ -28,9 +28,14 @@ def guardar_usuario(lista):
         json.dump(lista,f,indent=4)
 
 #3)Función para agregar un usuario
-def agregar_usuario(dni,nombre,entrada,salida):
+def agregar_usuario(dni,nombre,h_entrada,m_entrada,h_salida,m_salida):
     lista_usuarios = cargar_usuarios()
-    new_usuario = {"dni":dni,"nombre":nombre,"entrada":entrada, "salida":salida}
+    new_usuario = {"dni":dni,
+                   "nombre":nombre,
+                   "h_entrada":h_entrada,
+                   "m_entrada":m_entrada, 
+                   "h_salida":h_salida,
+                   "m_salida":m_salida}
     for u in lista_usuarios:
         if u.get("dni") == dni:
             print("El usuario ya existe " + str(u.get("dni")))
@@ -188,7 +193,7 @@ ventana.geometry('400x260')
 ventana.resizable(False, False)
 
 
-#Centrado de ventana
+#Centrado de ventana (fuente: https://www.geeksforgeeks.org/python/how-to-center-a-window-on-the-screen-in-tkinter/)
 def center_window(window):
     window.update_idletasks()
     width = window.winfo_width()
@@ -268,59 +273,111 @@ def abrir_ventana_usuarios():
 
     Label(frame_form, text="Nombre").grid(row=0, column=0, padx=5, pady=3)
     Label(frame_form, text="DNI").grid(row=1, column=0, padx=5, pady=3)
-    Label(frame_form, text="Hora entrada").grid(row=2, column=0, padx=5, pady=3)
-    Label(frame_form, text="Hora salida").grid(row=3, column=0, padx=5, pady=3)
+    Label(frame_form, text="Hora entrada (HH)").grid(row=2, column=0, padx=5, pady=3)
+    Label(frame_form, text="Min entrada (MM)").grid(row=2, column=2, padx=5, pady=3)
+    Label(frame_form, text="Hora salida (HH)").grid(row=3, column=0, padx=5, pady=3)
+    Label(frame_form, text="Min salida (MM)").grid(row=3, column=2, padx=5, pady=3)
 
     entry_nombre = Entry(frame_form)
     entry_dni = Entry(frame_form)
-    entry_h_entrada = Entry(frame_form)
-    entry_h_salida = Entry(frame_form)
+    entry_h_entrada = Entry(frame_form, width=5)
+    entry_m_entrada = Entry(frame_form, width=5)
+    entry_h_salida = Entry(frame_form, width=5)
+    entry_m_salida = Entry(frame_form, width=5)
 
-    entry_nombre.grid(row=0, column=1, padx=5, pady=3)
-    entry_dni.grid(row=1, column=1, padx=5, pady=3)
-    entry_h_entrada.grid(row=2, column=1, padx=5, pady=3)
-    entry_h_salida.grid(row=3, column=1, padx=5, pady=3)
+    entry_nombre.grid(row=0, column=1, padx=5, pady=3, columnspan=3, sticky="w")
+    entry_dni.grid(row=1, column=1, padx=5, pady=3, columnspan=3, sticky="w")
+    entry_h_entrada.grid(row=2, column=1, padx=5, pady=3, sticky="w")
+    entry_m_entrada.grid(row=2, column=3, padx=5, pady=3, sticky="w")
+    entry_h_salida.grid(row=3, column=1, padx=5, pady=3, sticky="w")
+    entry_m_salida.grid(row=3, column=3, padx=5, pady=3, sticky="w")
 
-    # Botón enviar
-    ttk.Button(frame_form, text="Agregar usuario").grid(row=4, column=0, columnspan=2, pady=10)
+    def validar_hora_min(h_str, m_str):
+        try:
+            h = int(h_str)
+            m = int(m_str)
+        except:
+            return False, None, None
+        if 0 <= h <= 23 and 0 <= m <= 59:
+            return True, h, m
+        return False, None, None
+
+
+    def submit():
+        nombre = entry_nombre.get().strip()
+        dni_str = entry_dni.get().strip()
+        h_e_str = entry_h_entrada.get().strip()
+        m_e_str = entry_m_entrada.get().strip()
+        h_s_str = entry_h_salida.get().strip()
+        m_s_str = entry_m_salida.get().strip()
+
+        # Validar campos obligatorios
+        if not nombre or not dni_str:
+            messagebox.showwarning("Atención", "Nombre y DNI son obligatorios.")
+            return
+
+        # Asegurar que el DNI sea numérico
+        if not dni_str.isdigit():
+            messagebox.showwarning("Atención", "El DNI debe ser numérico.")
+            return
+
+        dni = int(dni_str)
+
+        # Validación de horarios
+        ok_e, h_e, m_e = validar_hora_min(h_e_str, m_e_str)
+        ok_s, h_s, m_s = validar_hora_min(h_s_str, m_s_str)
+
+        if not (ok_e and ok_s):
+            messagebox.showwarning("Atención", "Horas o minutos inválidos. HH 0-23, MM 0-59.")
+            return
+
+        # Usar tu función agregar_usuario()
+        ok = agregar_usuario(dni, nombre, h_e, m_e, h_s, m_s)
+
+        if not ok:
+            messagebox.showwarning("Atención", f"El DNI {dni} ya existe.")
+            return
+
+        # Limpiar campos
+        entry_nombre.delete(0, tk.END)
+        entry_dni.delete(0, tk.END)
+        entry_h_entrada.delete(0, tk.END)
+        entry_m_entrada.delete(0, tk.END)
+        entry_h_salida.delete(0, tk.END)
+        entry_m_salida.delete(0, tk.END)
+
+        messagebox.showinfo("Listo", "Usuario agregado correctamente.")
+
+    tk.Button(frame_form, text="Agregar usuario", command=submit).grid(row=4, column=0, columnspan=4, pady=10)
+
+
 
     # Cerrar ventana
     close_button = tk.Button(ventana_us, text="Cerrar", command=ventana_us.destroy)
-    close_button.pack(pady=10)
-
-
+    close_button.place(relx=0.9, rely=0.95, anchor="center")
 def abrir_ventana_registro():
     registros = cargar_registro()
     
     ventana_res = tk.Toplevel(ventana)
-    ventana_res.transient(ventana)   # la asocia a la ventana principal
-    ventana_res.grab_set()           # bloquea interacción con otras ventanas
-    ventana_res.focus_force()  
+    ventana_res.transient(ventana)
+    ventana_res.grab_set()
+    ventana_res.focus_force()
 
     ventana_res.title("Bienvenido administrador")
     ventana_res.geometry("520x500")
     ventana_res.resizable(False, False)
     center_window(ventana_res)
-    label_new = tk.Label(ventana_res, text="Registro de ingresos y salidas",font=("Helvetica", 14, "bold"))
-    label_new.place(relx=0.2, y=0)
 
-    close_button = tk.Button(ventana_res, text="Cerrar ventana", command=ventana_res.destroy)
-    close_button.place(x=400, y=400)
+    frame_main = tk.Frame(ventana_res)
+    frame_main.pack(expand=True, pady=10)
 
-    user_button = tk.Button(ventana_res, text="Administrar empleados", command=abrir_ventana_usuarios)
-    user_button.place(x=250, y=400)
+    label_new = tk.Label(frame_main, text="Registro de ingresos y salidas", font=("Helvetica", 14, "bold"))
+    label_new.grid(row=0, column=0, columnspan=3, pady=(0,10))
 
-    btn_eliminar = tk.Button(ventana_res, text="Eliminar seleccionado",
-    command=lambda: eliminar_registro(tv))  
-    btn_eliminar.place(x=50, y=400)  
-
-
-    frame_tabla = tk.Frame(ventana_res)
-    frame_tabla.place(x=4, y=30)
-
+    frame_tabla = tk.Frame(frame_main)
+    frame_tabla.grid(row=1, column=0, columnspan=3)
 
     tv = ttk.Treeview(frame_tabla, columns=("col1", "col2", "col3"), height=15)
-
     tv.column("#0", width=130)
     tv.column("col1", width=120, anchor=CENTER)
     tv.column("col2", width=120, anchor=CENTER)
@@ -338,10 +395,39 @@ def abrir_ventana_registro():
     scroll = ttk.Scrollbar(frame_tabla, orient="vertical", command=tv.yview)
     tv.configure(yscrollcommand=scroll.set)
 
-
     tv.pack(side="left")
     scroll.pack(side="right", fill="y")
 
+    btn_eliminar = tk.Button(frame_main, text="Eliminar seleccionado", command=lambda: eliminar_registro(tv))
+    btn_eliminar.grid(row=2, column=0, pady=15)
+
+    user_button = tk.Button(frame_main, text="Administrar empleados", command=abrir_ventana_usuarios)
+    user_button.grid(row=2, column=1, pady=15, padx=10)
+
+    close_button = tk.Button(frame_main, text="Cerrar ventana", command=ventana_res.destroy)
+    close_button.grid(row=2, column=2, pady=15)
+
+def ventana_contraseña_admin(callback):
+    ventana_contra = tk.Toplevel()
+    ventana_contra.title("Contraseña")
+    ventana_contra.geometry("250x120")
+    ventana_contra.resizable(False, False)
+    ventana_contra.grab_set()   
+    ventana_contra.focus_force()
+    center_window(ventana_contra)
+
+    tk.Label(ventana_contra, text="Ingrese la contraseña (es 12345):").pack(pady=5)
+    contraseña = tk.Entry(ventana_contra, show="*")
+    contraseña.pack(pady=5)
+
+    def verificar_contraseña():
+        if contraseña.get() == "12345":   
+            ventana_contra.destroy()
+            callback()                  
+        else:
+            messagebox.showerror("Error", "Contraseña incorrecta")
+
+    tk.Button(ventana_contra, text="Aceptar", command=verificar_contraseña).pack(pady=5)
 
 
 #<DISPOSICIÓN DEL MENU DE RELOJ>
@@ -388,7 +474,7 @@ botonAdmin = tk.Button(
     frame,
     text="ADMIN",
     width=12,
-    command=abrir_ventana_registro
+    command=lambda: ventana_contraseña_admin(abrir_ventana_registro)
 )
 botonAdmin.grid(row=3, column=2, padx=5)
 

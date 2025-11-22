@@ -22,5 +22,13 @@
         "m_entrada": 0,
         "h_salida": 16,
         "m_salida": 0
+    },
+    {
+        "dni": 22354789,
+        "nombre": "Anal\u00eda Niveiro",
+        "h_entrada": 11,
+        "m_entrada": 0,
+        "h_salida": 0,
+        "m_salida": 0
     }
 ]

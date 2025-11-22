@@ -12,5 +12,19 @@
         "accion": "SALIDA",
         "hora": "2025-11-22 09:47:12",
         "condicion": "Antes de tiempo"
+    },
+    {
+        "dni": 22354789,
+        "nombre": "Anal\u00eda Niveiro",
+        "accion": "ENTRADA",
+        "hora": "2025-11-22 10:24:53",
+        "condicion": "A tiempo"
+    },
+    {
+        "dni": 22354789,
+        "nombre": "Anal\u00eda Niveiro",
+        "accion": "SALIDA",
+        "hora": "2025-11-22 10:25:00",
+        "condicion": "Horario cumplido"
     }
 ]
